@@ -6,6 +6,7 @@
 # 
 # Author: Daniel Cottrell
 # Part of the Farey-based fractal project.
+# -----------------------------------------------------------------------------
 
 import numpy as np
 
@@ -25,5 +26,4 @@ def generate_full_plane(grid_points, N):
 def sort_points_by_distance(points):
     """Sort points by Euclidean distance from origin."""
     return sorted(points, key=lambda x: np.sqrt(x[0]**2 + x[1]**2))
-
 

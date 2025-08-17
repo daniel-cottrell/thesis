@@ -5,6 +5,7 @@
 #
 # Author: Daniel Cottrell
 # Part of the Farey-based fractal project.
+# -----------------------------------------------------------------------------
 
 from fractions import Fraction
 
