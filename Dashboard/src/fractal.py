@@ -10,6 +10,7 @@
 # 
 # Author: Daniel Cottrell
 # Part of the Farey-based fractal project.
+# -----------------------------------------------------------------------------
 
 from src import farey, transforms, criteria, plotting
 
