@@ -12,7 +12,7 @@
 # Part of the Farey-based fractal project.
 # -----------------------------------------------------------------------------
 
-from src import farey, transforms, criteria, plotting
+from src import farey, transforms, criteria
 
 def map_to_periodic_lines(points, N):
     """Map points to periodic lines modulo N."""
