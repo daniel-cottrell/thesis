@@ -28,33 +28,34 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.write("")
+st.write("")
+
 left_col, middle_col, right_col = st.columns([2, 0.2, 2])
 
 with left_col:
-    # Create tabs
-    tabs = st.tabs(["Fractal Parameter Inputs"])
+    N = st.slider("Order (N)", min_value=50, max_value=1000,
+                  value=257, step=1)
+    K = st.slider("Katz criterion (K)", min_value=float(0), max_value=float(5),
+                  value=0.1, step=0.01)
+    
+    point_size = st.slider("Point Size", min_value=0.1, max_value=5.0,
+                           value=0.5, step=0.1)
 
-    with tabs[0]:
-        col1, col2 = st.columns(2)
-
-        with col1:
-            N = st.slider("Order (N)", min_value=50, max_value=500,
-                          value=257, step=1)
-            K = st.slider("Katz criterion (K)", min_value=float(0), max_value=float(1),
-                          value=0.1, step=0.01)
-            
-            points = fractal.generate_fractal_points(N, K)
+    points = fractal.generate_fractal_points(N, K)
 
 with right_col:
-    fig = plotting.plot_fractal(points, N, K)
+    fig = plotting.plot_fractal(points, N, K, point_size)#, colormap)
     st.pyplot(fig)
 
 
 
 # Add more interactive controls (colormap, point size, zoom)
-# Save plots as images/PDFs directly from streamlit
-# Create a summary of the mathematical properties
-# Let users compare multiple fractals side by side
+# Come up with metric for colormap based on the thesis
+#
+# Create a summary of the mathematical properties, displayed underneath fractal
+# Let users compare two fractals side by side (single and dual mode)
+# For selecting order, add option for only prime number selection vs any number
 
 
 

@@ -8,13 +8,19 @@
 # -----------------------------------------------------------------------------
 
 import matplotlib.pyplot as plt
+import numpy as np
 
-def plot_fractal(points, N, K):
+def plot_fractal(points, N, K, point_size=0.5):#, colormap="viridis"):
     """Plot fractal using scatter plot."""
     x_vals, y_vals = zip(*points) if points else ([], [])
     fig, ax = plt.subplots(figsize=(8, 8))
-    ax.scatter(x_vals, y_vals, s=0.5, color='black')
+    scatter = ax.scatter(
+        x_vals, y_vals,
+        s=point_size, marker="o",
+        color='black'
+    )
     ax.set_title(f"Fractal for N = {N}, K = {K}")
-    ax.axis('equal')
+    ax.set_aspect("equal")
+
     return fig
 
