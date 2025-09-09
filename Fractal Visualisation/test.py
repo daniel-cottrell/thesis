@@ -12,7 +12,6 @@ def farey_sequence(N):
     a1, b1 = 0, 1
     a2, b2 = 1, 1
     
-    
     # Generate the Farey sequence
     while b2 <= N:
         a3 = a1 + a2

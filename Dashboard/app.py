@@ -7,8 +7,8 @@
 # Part of the Farey-based fractal project.
 # -----------------------------------------------------------------------------
 
-import streamlit as st
-from src import fractal, plotting
+import streamlit as st 
+from src import fractal_corner, fractal_centre, plotting
 
 st.set_page_config(page_title="Farey Fractals", layout="wide")
 st.markdown(
@@ -28,25 +28,99 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.write("")
-st.write("")
+# Mode selection
+mode = st.radio(
+    "Mode",
+    ["Single Fractal", "Dual Fractals"],
+    index=0,
+    horizontal=True
+)
 
-left_col, middle_col, right_col = st.columns([2, 0.2, 2])
+if mode == "Single Fractal":
+    left_col, _, right_col = st.columns([2, 0.2, 2])
 
-with left_col:
-    N = st.slider("Order (N)", min_value=50, max_value=1000,
-                  value=257, step=1)
-    K = st.slider("Katz criterion (K)", min_value=float(0), max_value=float(5),
-                  value=0.1, step=0.01)
-    
-    point_size = st.slider("Point Size", min_value=0.1, max_value=5.0,
-                           value=0.5, step=0.1)
+    with left_col:
+        N = st.slider("Order (N)", 50, 1000, 257, 1)
+        K = st.slider("Katz criterion (K)", 0.0, 5.0, 0.1, 0.01)
+        
+        point_size = st.slider("Point Size", 0.1, 5.0, 0.5, 0.1)
 
-    points = fractal.generate_fractal_points(N, K)
+        origin_choice = st.radio(
+            "Fractal Origin",
+            ["Corner", "Centre"],
+            index=1,
+            horizontal=True
+        )
 
-with right_col:
-    fig = plotting.plot_fractal(points, N, K, point_size)#, colormap)
-    st.pyplot(fig)
+        if origin_choice == "Corner":
+            points = fractal_corner.generate_fractal_points(N, K)
+        else:
+            points = fractal_centre.generate_fractal_points(N, K)
+
+    with right_col:
+        fig = plotting.plot_fractal(points, N, K, point_size)
+        st.pyplot(fig)
+
+else:  # Dual Fractals
+    st.subheader("Synchronisation Options")
+    sync_N = st.checkbox("Synchronise N (Order)")
+    sync_K = st.checkbox("Synchronise K (Katz criterion)")
+    sync_ps = st.checkbox("Synchronise Point Size")
+    sync_origin = st.checkbox("Synchronise Origin")
+
+    col1, col2 = st.columns(2)
+
+    # ---- FRACTAL A ----
+    with col1:
+        st.subheader("Fractal A")
+        N1 = st.slider("Order (N1)", 50, 1000, 257, 1, key="N1")
+        K1 = st.slider("Katz criterion (K1)", 0.0, 5.0, 0.1, 0.01, key="K1")
+        point_size1 = st.slider("Point Size (A)", 0.1, 5.0, 0.5, 0.1, key="ps1")
+        origin_choice1 = st.radio("Fractal Origin (A)", ["Corner", "Centre"], index=1, horizontal=True, key="o1")
+
+        if origin_choice1 == "Corner":
+            points1 = fractal_corner.generate_fractal_points(N1, K1)
+        else:
+            points1 = fractal_centre.generate_fractal_points(N1, K1)
+
+        fig1 = plotting.plot_fractal(points1, N1, K1, point_size1)
+        st.pyplot(fig1)
+
+    # ---- FRACTAL B ----
+    with col2:
+        st.subheader("Fractal B")
+
+        # Order (N)
+        if sync_N:
+            N2 = st.slider("Order (N2)", 50, 1000, N1, 1, key="N2", disabled=True)
+        else:
+            N2 = st.slider("Order (N2)", 50, 1000, 500, 1, key="N2")
+
+        # Katz criterion (K)
+        if sync_K:
+            K2 = st.slider("Katz criterion (K2)", 0.0, 5.0, K1, 0.01, key="K2", disabled=True)
+        else:
+            K2 = st.slider("Katz criterion (K2)", 0.0, 5.0, 0.2, 0.01, key="K2")
+
+        # Point size
+        if sync_ps:
+            point_size2 = st.slider("Point Size (B)", 0.1, 5.0, point_size1, 0.1, key="ps2", disabled=True)
+        else:
+            point_size2 = st.slider("Point Size (B)", 0.1, 5.0, 0.5, 0.1, key="ps2")
+
+        # Origin
+        if sync_origin:
+            origin_choice2 = st.radio("Fractal Origin (B)", ["Corner", "Centre"], index=(0 if origin_choice1 == "Corner" else 1), horizontal=True, key="o2", disabled=True)
+        else:
+            origin_choice2 = st.radio("Fractal Origin (B)", ["Corner", "Centre"], index=1, horizontal=True, key="o2")
+
+        if origin_choice2 == "Corner":
+            points2 = fractal_corner.generate_fractal_points(N2, K2)
+        else:
+            points2 = fractal_centre.generate_fractal_points(N2, K2)
+
+        fig2 = plotting.plot_fractal(points2, N2, K2, point_size2)
+        st.pyplot(fig2)
 
 
 

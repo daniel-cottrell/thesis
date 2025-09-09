@@ -10,7 +10,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_fractal(points, N, K, point_size=0.5):#, colormap="viridis"):
+def plot_fractal(points, N, K, point_size=0.5):
     """Plot fractal using scatter plot."""
     x_vals, y_vals = zip(*points) if points else ([], [])
     fig, ax = plt.subplots(figsize=(8, 8))

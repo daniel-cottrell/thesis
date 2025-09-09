@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# transforms.py
+# transforms_centre.py
 # -----------------------------------------------------------------------------
 # Maps Farey fractions to grid coordinates, generating mirroed points, and 
 # sorting points by Euclidean distance.
@@ -17,11 +17,18 @@ def farey_to_grid(sequence):
 def generate_full_plane(grid_points, N):
     """Reflect and mirror points across axes to cover all quadrants."""
     full_points = []
-    
-    for (b, a) in grid_points:
-        full_points.extend([(b, a), (b, -a), (-b, a), (-b, -a)])
+    center = N // 2  # middle of the square
 
-    return [(b % N, a % N) for b, a in full_points]
+    for (b, a) in grid_points:
+        # generate reflections
+        variants = [(b, a), (b, -a), (-b, a), (-b, -a)]
+        for x, y in variants:
+            # shift so origin maps to the middle of the square
+            new_x = (x + center) % N
+            new_y = (y + center) % N
+            full_points.append((new_x, new_y))
+
+    return full_points
 
 def sort_points_by_distance(points):
     """Sort points by Euclidean distance from origin."""
