@@ -8,7 +8,7 @@
 # -----------------------------------------------------------------------------
 
 import streamlit as st 
-from src import fractal_corner, fractal_centre, intersect, plotting
+from src import fractal_corner, fractal_centre, intersect, plotting, metrics
 
 st.set_page_config(page_title="Farey Fractals", layout="wide")
 st.markdown(
@@ -61,6 +61,14 @@ if mode == "Single Fractal":
         fig = plotting.plot_fractal(points, N, K, point_size, origin_choice.lower())
         st.pyplot(fig)
 
+        if points:
+            st.subheader("Fractal Metrics")
+            dim = metrics.fractal_dimension(points)
+            ent = metrics.fractal_entropy(points)
+
+            st.metric("Estimated Dimension", f"{dim:.3f}")
+            st.metric("Entropy", f"{ent:.3f}")
+
 else:  # Dual Fractals
     st.subheader("Synchronisation Options")
     sync_N = st.checkbox("Synchronise N (Order)")
@@ -88,6 +96,11 @@ else:  # Dual Fractals
 
         fig1 = plotting.plot_fractal(points1, N1, K1, point_size1, origin_choice1.lower())
         st.pyplot(fig1)
+
+        if points1:
+            st.write("**Metrics (A):**")
+            st.text(f"Dimension = {metrics.fractal_dimension(points1):.3f}")
+            st.text(f"Entropy = {metrics.fractal_entropy(points1):.3f}")
 
     # ---- FRACTAL B ----
     with col2:
@@ -125,6 +138,11 @@ else:  # Dual Fractals
 
         fig2 = plotting.plot_fractal(points2, N2, K2, point_size2, origin_choice2.lower())
         st.pyplot(fig2)
+
+        if points2:
+            st.write("**Metrics (B):**")
+            st.text(f"Dimension = {metrics.fractal_dimension(points2):.3f}")
+            st.text(f"Entropy = {metrics.fractal_entropy(points2):.3f}")
 
     st.write("")
     st.write("")
@@ -167,7 +185,6 @@ else:  # Dual Fractals
         f"N2={N2}, K2={K2}, origin={origin_choice2.lower()}"
     )
     ax.set_aspect("equal")
-    ax.legend()
 
     st.pyplot(fig_inter)
 
@@ -186,24 +203,11 @@ else:  # Dual Fractals
                    c="green", label="A − B", alpha=0.7)
     ax.set_title(
         f"N1={N1}, K1={K1}, origin={origin_choice1.lower()}  −  "
-        f"N2={N2}, K2={K2}, origin={origin_choice2.lower()})"
+        f"N2={N2}, K2={K2}, origin={origin_choice2.lower()}"
     )
     ax.set_aspect("equal")
     ax.legend()
     st.pyplot(fig_diff)
-
-
-
-
-# Add more interactive controls (colormap, point size, zoom)
-# Come up with metric for colormap based on the thesis
-#
-# Create a summary of the mathematical properties, displayed underneath fractal
-# For selecting order, add option for only prime number selection vs any number
-
-
-
-
 
 
 
