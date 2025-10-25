@@ -52,22 +52,21 @@ if mode == "Single Fractal":
             horizontal=True
         )
 
+        inverse = st.checkbox("Inverse Mapping (Swap Black and White)", value=False)
+
         if origin_choice == "Corner":
             points = fractal_corner.generate_fractal_points(N, K)
         else:
             points = fractal_centre.generate_fractal_points(N, K)
 
     with right_col:
-        fig = plotting.plot_fractal(points, N, K, point_size, origin_choice.lower())
+        fig = plotting.plot_fractal(points, N, K, point_size, origin_choice.lower(), inverse=inverse)
         st.pyplot(fig)
 
         if points:
-            st.subheader("Fractal Metrics")
+            st.write("**Metrics**")
             dim = metrics.fractal_dimension(points)
-            ent = metrics.fractal_entropy(points)
-
-            st.metric("Estimated Dimension", f"{dim:.3f}")
-            st.metric("Entropy", f"{ent:.3f}")
+            st.text(f"Dimension = {dim:.3f}")
 
 else:  # Dual Fractals
     st.subheader("Synchronisation Options")
@@ -100,7 +99,7 @@ else:  # Dual Fractals
         if points1:
             st.write("**Metrics (A):**")
             st.text(f"Dimension = {metrics.fractal_dimension(points1):.3f}")
-            st.text(f"Entropy = {metrics.fractal_entropy(points1):.3f}")
+            #st.text(f"Entropy = {metrics.fractal_entropy(points1):.3f}")
 
     # ---- FRACTAL B ----
     with col2:
@@ -142,8 +141,14 @@ else:  # Dual Fractals
         if points2:
             st.write("**Metrics (B):**")
             st.text(f"Dimension = {metrics.fractal_dimension(points2):.3f}")
-            st.text(f"Entropy = {metrics.fractal_entropy(points2):.3f}")
+            #st.text(f"Entropy = {metrics.fractal_entropy(points2):.3f}")
 
+    st.write("")
+    if N1 != N2:
+        st.write("Hausdorff Distance is only calculated when N are the same size.")
+    else:
+        st.text(f"Hausdorff Distance (A and B) = {metrics.fractal_distance(points1, points2):.3f}")
+    
     st.write("")
     st.write("")
     st.write("")

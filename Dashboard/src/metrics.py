@@ -3,8 +3,7 @@
 # -----------------------------------------------------------------------------
 # Mathematical metrics for Farey-based fractals:
 #   - Box-counting fractal dimension
-#   - Shannon entropy of point distribution
-#   - Distance metrics between fractals
+#   - Hausdorff distance between two fractals
 #
 # Author: Daniel Cottrell
 # Part of the Farey-based fractal project.
@@ -41,21 +40,8 @@ def fractal_dimension(points, box_sizes=None):
     return coeffs[0]
 
 
-# Entropy
-def fractal_entropy(points, bins=50):
-    """Computes the Shannon entropy of the fractal points."""
-    if not points:
-        return 0.0
-    
-    pts = np.array(points)
-    H, _, _ = np.histogram2d(pts[:, 0], pts[:, 1], bins=bins)
-    p = H / np.sum(H)
-    p = p[p > 0]
-    return -np.sum(p * np.log2(p))
-
-
-# Distance
-def fractal_distance(points1, points2, metric="hausdorff"):
+# Hausdorff Distance
+def fractal_distance(points1, points2):
     """Computes the distance between two fractals."""
 
     if not points1 or not points2:
@@ -64,16 +50,10 @@ def fractal_distance(points1, points2, metric="hausdorff"):
     A = np.array(points1)
     B = np.array(points2)
 
-    if metric == "hausdorff":
-        d_AB = np.max(np.min(cdist(A, B), axis=1))
-        d_BA = np.max(np.min(cdist(B, A), axis=1))
-        return max(d_AB, d_BA)
-    elif metric == "euclidean_mean":
-        return np.mean(cdist(A, B))
-    else:
-        raise ValueError("Unknown metric: " + metric)
-
-
+    d_AB = np.max(np.min(cdist(A, B), axis=1))
+    d_BA = np.max(np.min(cdist(B, A), axis=1))
+    return max(d_AB, d_BA)
+    
 
 
 
