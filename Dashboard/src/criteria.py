@@ -11,9 +11,17 @@ import numpy as np
 
 def apply_katz_criterion(points, K):
     """Filter points using Katz criterion with threshold K."""
-    max_a = max(abs(a) for _, a in points)
-    max_b = max(abs(b) for b, _ in points)
-    threshold = max(max_a, max_b) * K
+    if not points:
+        return []
 
-    return [pt for pt in points if np.sqrt(pt[0]**2 + pt[1]**2) <= threshold]
+    pts = np.asarray(points, dtype=float)
+    max_x = np.max(np.abs(pts[:, 0]))
+    max_y = np.max(np.abs(pts[:, 1]))
+    threshold = max(max_x, max_y) * K
+
+    # Use squared distance to avoid sqrt
+    sqd = pts[:, 0]**2 + pts[:, 1]**2
+    mask = sqd <= threshold**2
+    filtered = pts[mask]
+    return [tuple(row) for row in filtered]
 

@@ -84,6 +84,7 @@ else:  # Dual Fractals
         K1 = st.slider("Katz criterion (K1)", 0.0, 5.0, 0.1, 0.01, key="K1")
         point_size1 = st.slider("Point Size (A)", 0.1, 5.0, 0.5, 0.1, key="ps1")
         origin_choice1 = st.radio("Fractal Origin (A)", ["Corner", "Centre"], index=1, horizontal=True, key="o1")
+        inverse = st.checkbox("Inverse Mapping (Swap Black and White)", value=False, key="i1")
 
         if origin_choice1 == "Corner":
             points1 = fractal_corner.generate_fractal_points(N1, K1)
@@ -93,13 +94,12 @@ else:  # Dual Fractals
         st.write("")
         st.write("")
 
-        fig1 = plotting.plot_fractal(points1, N1, K1, point_size1, origin_choice1.lower())
+        fig1 = plotting.plot_fractal(points1, N1, K1, point_size1, origin_choice1.lower(), inverse=inverse)
         st.pyplot(fig1)
 
         if points1:
             st.write("**Metrics (A):**")
             st.text(f"Dimension = {metrics.fractal_dimension(points1):.3f}")
-            #st.text(f"Entropy = {metrics.fractal_entropy(points1):.3f}")
 
     # ---- FRACTAL B ----
     with col2:
@@ -127,6 +127,9 @@ else:  # Dual Fractals
         else:
             origin_choice2 = st.radio("Fractal Origin (B)", ["Corner", "Centre"], index=1, horizontal=True, key="o2")
 
+        inverse = st.checkbox("Inverse Mapping (Swap Black and White)", value=False)
+
+
         if origin_choice2 == "Corner":
             points2 = fractal_corner.generate_fractal_points(N2, K2)
         else:
@@ -135,13 +138,12 @@ else:  # Dual Fractals
         st.write("")
         st.write("")
 
-        fig2 = plotting.plot_fractal(points2, N2, K2, point_size2, origin_choice2.lower())
+        fig2 = plotting.plot_fractal(points2, N2, K2, point_size2, origin_choice2.lower(), inverse=inverse)
         st.pyplot(fig2)
 
         if points2:
             st.write("**Metrics (B):**")
             st.text(f"Dimension = {metrics.fractal_dimension(points2):.3f}")
-            #st.text(f"Entropy = {metrics.fractal_entropy(points2):.3f}")
 
     st.write("")
     if N1 != N2:
