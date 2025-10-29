@@ -8,7 +8,6 @@
 # -----------------------------------------------------------------------------
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 def plot_fractal(points, N, K, point_size=0.5, origin="corner", inverse=False):
     """Plot fractal using scatter plot."""
