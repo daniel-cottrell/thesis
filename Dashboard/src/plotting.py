@@ -27,7 +27,6 @@ def plot_fractal(points, N, K, point_size=0.5, origin="corner", inverse=False):
         color=point_color
     )
 
-    ax.set_title(f"Fractal for N = {N}, K = {K}, origin={origin}")
     ax.set_aspect("equal")
 
     return fig
