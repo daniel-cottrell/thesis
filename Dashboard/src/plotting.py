@@ -4,7 +4,7 @@
 # Function for plotting fractal points using matplotlib.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 import matplotlib.pyplot as plt

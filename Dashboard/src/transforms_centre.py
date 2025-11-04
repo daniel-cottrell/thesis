@@ -5,7 +5,7 @@
 # sorting points by Euclidean distance.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 import numpy as np

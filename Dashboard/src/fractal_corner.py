@@ -12,7 +12,7 @@
 # towards the edges.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 from src import farey, transforms_corner, criteria

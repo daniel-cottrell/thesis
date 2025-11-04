@@ -12,7 +12,7 @@
 # balanced and symmetric.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 from src import farey, transforms_centre, criteria

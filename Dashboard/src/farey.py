@@ -4,7 +4,7 @@
 # Function for generating Farey sequences of order N.
 #
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 from fractions import Fraction

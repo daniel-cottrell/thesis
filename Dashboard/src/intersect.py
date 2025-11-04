@@ -4,7 +4,7 @@
 # Implements an equality check between sets of points, using a tolerance value.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 def intersect_points(points1, points2, tol=1):

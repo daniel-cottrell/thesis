@@ -4,7 +4,7 @@
 # Streamlit dashboard entry point for exploring Farey-based fractals.
 # 
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 import streamlit as st 

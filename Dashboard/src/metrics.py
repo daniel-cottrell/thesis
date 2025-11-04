@@ -6,7 +6,7 @@
 #   - Hausdorff distance between two fractals
 #
 # Author: Daniel Cottrell
-# Part of the Farey-based fractal project.
+# Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
 import numpy as np
