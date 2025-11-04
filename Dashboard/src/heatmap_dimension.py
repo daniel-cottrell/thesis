@@ -10,7 +10,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from src import fractal_corner, metrics
+import fractal_corner, metrics
 
 def theoretical_dimension(N, K):
     """Analytical approximation of fractal dimension from thesis."""
@@ -53,7 +53,7 @@ def plot_heatmap(N_values, K_values, D_matrix, title, cmap="viridis"):
     return fig
 
 
-def generate_dimension_heatmaps(N_min=50, N_max=500, N_step=50,
+def generate_dimension_heatmaps(N_min=50, N_max=1000, N_step=50,
                                 K_min=0.1, K_max=1.0, K_step=0.1,
                                 origin="Corner"):
     """
@@ -74,3 +74,10 @@ def generate_dimension_heatmaps(N_min=50, N_max=500, N_step=50,
                         "Absolute Error |D_computed − D_theoretical|", cmap="plasma")
 
     return fig1, fig2, fig3
+
+# Display the figures
+fig1, fig2, fig3 = generate_dimension_heatmaps()
+
+plt.show()
+
+
