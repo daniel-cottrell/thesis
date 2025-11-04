@@ -161,10 +161,10 @@ else:  # Dual Fractals
                                     help="Display size of each plotted point for Fractal B.")
 
         if sync_origin:
+            index2 = 0 if origin_choice1 == "Corner" else 1
             origin_choice2 = origin_choice1
             st.radio("Fractal Origin (B)", ["Corner", "Centre"],
-                                      index=(0 if origin_choice2 == "Corner" else 1),
-                                      horizontal=True, key="o2", disabled=True,
+                                      index=index2, horizontal=True, key="o2", disabled=True,
                                       help="Construction origin for Fractal B (synchronised with A).")
         else:
             origin_choice2 = st.radio("Fractal Origin (B)", ["Corner", "Centre"], index=0,
