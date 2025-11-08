@@ -137,6 +137,7 @@ else:  # Dual Fractals
         st.subheader("Fractal B")
 
         if sync_N:
+            st.session_state["N2"] = N1
             N2 = N1
             st.slider("Order (N2)", 50, 1000, N2, 1, key="N2", disabled=True,
                            help="Farey sequence order for Fractal B (synchronised with A).")
@@ -145,6 +146,7 @@ else:  # Dual Fractals
                            help="Farey sequence order for Fractal B.")
 
         if sync_K:
+            st.session_state["K2"] = K1
             K2 = K1
             st.slider("Katz criterion (K2)", K_min, K_max, K2, 0.01, key="K2", disabled=True,
                            help="Transformation parameter for Fractal B (synchronised with A).")
@@ -153,6 +155,7 @@ else:  # Dual Fractals
                            help="Transformation parameter controlling complexity of Fractal B.")
 
         if sync_ps:
+            st.session_state["ps2"] = point_size1
             point_size2 = point_size1
             st.slider("Point Size (B)", 0.1, 5.0, point_size2, 0.1, key="ps2", disabled=True,
                                     help="Point size for Fractal B (synchronised with A).")
@@ -161,10 +164,10 @@ else:  # Dual Fractals
                                     help="Display size of each plotted point for Fractal B.")
 
         if sync_origin:
-            index2 = 0 if origin_choice1 == "Corner" else 1
             origin_choice2 = origin_choice1
+            st.session_state["o2"] = origin_choice1
             st.radio("Fractal Origin (B)", ["Corner", "Centre"],
-                                      index=index2,
+                                      index=(0 if origin_choice1 == "Corner" else 1),
                                       horizontal=True, key="o2", disabled=True,
                                       help="Construction origin for Fractal B (synchronised with A).")
         else:
