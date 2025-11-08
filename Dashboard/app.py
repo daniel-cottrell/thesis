@@ -7,8 +7,12 @@
 # Part of the Farey fractal project.
 # -----------------------------------------------------------------------------
 
-import streamlit as st 
+import warnings
+import streamlit as st
 from src import fractal_corner, fractal_centre, intersect, plotting, metrics
+
+warnings.filterwarnings("ignore")
+st.set_option('client.showErrorDetails', False)
 
 st.set_page_config(page_title="Farey Fractals", layout="wide")
 st.markdown(
